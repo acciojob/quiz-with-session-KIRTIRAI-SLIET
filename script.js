@@ -36,10 +36,8 @@ const questions = [
   const submitBtn = document.getElementById("submit");
   const scoreElement = document.getElementById("score");
 
-  // Load saved answers (sessionStorage)
   let userAnswers = JSON.parse(sessionStorage.getItem("progress")) || [];
 
-  // Load saved score (localStorage)
   const savedScore = localStorage.getItem("score");
   if (savedScore !== null) {
     scoreElement.textContent = `Your score is ${savedScore} out of 5.`;
@@ -64,12 +62,10 @@ const questions = [
         input.name = `question-${i}`;
         input.value = choice;
 
-        // Restore checked state
         if (userAnswers[i] === choice) {
-          input.checked = true;
-        }
+		  input.setAttribute("checked", "true");
+		}
 
-        // Save on change
         input.addEventListener("change", () => {
           userAnswers[i] = choice;
           sessionStorage.setItem("progress", JSON.stringify(userAnswers));
@@ -85,7 +81,6 @@ const questions = [
     }
   }
 
-  // Submit logic
   submitBtn.addEventListener("click", () => {
     let score = 0;
 
@@ -97,7 +92,6 @@ const questions = [
 
     scoreElement.textContent = `Your score is ${score} out of 5.`;
 
-    // Save score to localStorage
     localStorage.setItem("score", score);
   });
 
